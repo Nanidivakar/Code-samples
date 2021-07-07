@@ -1,0 +1,31 @@
+import os
+import time
+import shutil
+import logging as lg
+
+lg.basicConfig(filename = os.path.dirname(os.getcwd())+"\loginfo.txt", level = lg.INFO, datefmt="%Y%M%D-%H:%M:%S", force = True , format= "%(asctime)s-%(process)d-%(levelname)s-%(name)s-%(message)s-")
+def copy_files(Directory):
+    #creating pdf and jpg files 
+    timestr = time.strftime("%Y%m%d-%H%M%S")
+    #pdf file
+    file = open("file"+timestr+".pdf","w")
+    file.write("pdf encrpted data")
+    file.close()
+    lg.info("pdf file created in directory")
+
+    #jpg file
+    filecsv = open("jpgfile"+timestr+".jpg","w+")
+    filecsv.write("jpg data")
+    filecsv.close()
+    lg.info("jpg file created in directory")
+    
+    #Moving pdf and jpg files to other folders
+    extension = (".jpg",".pdf")
+    source = os.getcwd()
+    for filename in os.listdir(source):
+        if filename.endswith(extension):
+            lg.info("pdf and jpg extension files found in directory")
+            shutil.copytree(os.path.join(os.getcwd()), os.path.dirname(os.getcwd()) +r"\Newfolder"+timestr )
+            lg.info("Files moved to new folder" )
+            print("files created and moved to newfolder in specified directory, check log for more info indetail ")
+            break 
